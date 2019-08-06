@@ -1,5 +1,15 @@
-start()
+
+document.getElementById('btnStart').addEventListener('click', start);
+document.querySelector('.screen-quiz').classList.add('none');
+document.querySelector('.screen-result').classList.add('none');
+document.querySelector('.screen-leaderboard').classList.add('none');
+
+// start()
 function start() {
+    document.querySelector('.screen-quiz').classList.remove('none');
+    document.querySelector('.screen-home').classList.add('none');
+
+
     fetch(`https://api.myjson.com/bins/a6da9`)
         .then(res => res.json())
         .then(data => {
@@ -37,24 +47,30 @@ function start() {
                 shuffle(offeredAnswer)
                 console.log(offeredAnswer)
                 screenQuiz.innerHTML = `<h1>Pitanje ${index + 1}/5</h1>
-                <img src="${questionArr[index].image}" alt="Question image" width="200"><br>`
+                <img src="${questionArr[index].image}" alt="Question image" width="200" height="150px">`
                 for (let e in offeredAnswer) {
-                    screenQuiz.innerHTML += `<label><input type="radio" name="question" value="${offeredAnswer[e]}">${offeredAnswer[e]}<img src=""/></label>`
+                    screenQuiz.innerHTML += `<label><input  name="question" value="${offeredAnswer[e]}">${offeredAnswer[e]}<img src=""/></label>`
                 }
 
                 let chosenAnswer = document.getElementsByTagName('input')
+                const point = 750;
+                let sum = 0;
                 for (let el of chosenAnswer) {
                     el.addEventListener('click', function () {
                         el.parentElement.style.background = 'green'
                         if (questionArr[index].continent === el.value) {
                             alert('tacno')
+                            sum += point
                         } else {
                             alert('netacno')
                         }
                         if (index < 4) {
                         screenQuiz.innerHTML += `<button id='btn'>Next</button>`
-                        } else {
+                        document.getElementById('btn').addEventListener('click', next)
+                        } 
+                        else {
                             screenQuiz.innerHTML += `<button id='btn2'>End</button>`
+                            document.getElementById('btn2').addEventListener('click', end)
                         }
 
                         let btn = document.getElementById('btn')
@@ -62,6 +78,10 @@ function start() {
                         btn.addEventListener('click', next)
                     })
                 }
+            }
+
+            end = () => {
+                document.getElementsByClassName('screen-result')[0].innerHTML = sum;
             }
 
             next = () => {
