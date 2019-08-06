@@ -1,9 +1,12 @@
-
 document.getElementById('btnStart').addEventListener('click', start);
 document.querySelector('.screen-quiz').classList.add('none');
 document.querySelector('.screen-result').classList.add('none');
 document.querySelector('.screen-leaderboard').classList.add('none');
 
+let screenQuiz = document.getElementById('screenQuiz');
+let btnQuiz = document.querySelector('.btn-quiz');
+
+let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
 // start()
 function start() {
     document.querySelector('.screen-quiz').classList.remove('none');
@@ -35,6 +38,8 @@ function start() {
 
             }
             question();
+            const point = 750;
+            let sum = 0;
             function question() {
                 offeredAnswer.push(questionArr[index].continent)
                 while (offeredAnswer.length < 3) {
@@ -46,42 +51,81 @@ function start() {
                 console.log(offeredAnswer)
                 shuffle(offeredAnswer)
                 console.log(offeredAnswer)
-                screenQuiz.innerHTML = `<h1>Pitanje ${index + 1}/5</h1>
+
+
+                screenQuiz.innerHTML = `<h4>Question ${index + 1} of 5</h4>
                 <img src="${questionArr[index].image}" alt="Question image" width="200" height="150px">`
+
                 for (let e in offeredAnswer) {
-                    screenQuiz.innerHTML += `<label><input  name="question" value="${offeredAnswer[e]}">${offeredAnswer[e]}<img src=""/></label>`
+                    if (offeredAnswer[e] == questionArr[index].continent) {
+                        screenQuiz.innerHTML += `<label id="tacan"><input name="question" value="${offeredAnswer[e]}">${offeredAnswer[e]}<img src=""/></label>`
+                    } else {
+                        screenQuiz.innerHTML += `<label><input name="question" value="${offeredAnswer[e]}">${offeredAnswer[e]}<img src=""/></label>`
+                    }
+
                 }
 
+
+
+
+                // for (let e in offeredAnswer) {
+                //     screenQuiz.innerHTML += `<label><input  name="question" value="${offeredAnswer[e]}">${offeredAnswer[e]}<img src=""/></label>`
+                // }
+
                 let chosenAnswer = document.getElementsByTagName('input')
-                const point = 750;
-                let sum = 0;
+                let odgovor = questionArr[index].continent;
                 for (let el of chosenAnswer) {
                     el.addEventListener('click', function () {
-                        el.parentElement.style.background = 'green'
+
+                        // if (questionArr[index].continent === el.value) {
+                        //     el.parentElement.style.background = 'green'
+                        //     // alert('tacno')
+                        //     sum += point
+                        // }
+                        // else {
+                        //     el.parentElement.style.background = 'red'
+                        //     // alert('netacno')
+                        //     chosenAnswer.value.find(odgovor)
+                        // }
+
                         if (questionArr[index].continent === el.value) {
-                            alert('tacno')
+                            el.parentElement.style.background = 'green'
                             sum += point
                         } else {
-                            alert('netacno')
+                            $("#tacan").css("background-color", "orange");
+                            el.parentElement.style.background = 'red'
+
                         }
+
                         if (index < 4) {
-                        screenQuiz.innerHTML += `<button id='btn'>Next</button>`
-                        document.getElementById('btn').addEventListener('click', next)
-                        } 
+                            btnQuiz.innerHTML = `<button id='btn'>Next</button>`
+                            document.getElementById('btn').addEventListener('click', next)
+                        }
                         else {
-                            screenQuiz.innerHTML += `<button id='btn2'>End</button>`
+                            
+                            btnQuiz.innerHTML = `<button id='btn2'>End</button>`
                             document.getElementById('btn2').addEventListener('click', end)
                         }
 
-                        let btn = document.getElementById('btn')
+                        //  odgovor.parentElement.style.background = 'green'
 
-                        btn.addEventListener('click', next)
+
                     })
                 }
+                console.log(odgovor)
             }
 
             end = () => {
                 document.getElementsByClassName('screen-result')[0].innerHTML = sum;
+                document.querySelector('.screen-quiz').classList.add('none');
+                document.querySelector('.screen-result').classList.remove('none');
+
+                let datum = new Date();
+                console.log(datum)
+                itemsArray.push({ sum, datum })
+                itemsArray.sort((a, b) => (a.sum < b.sum) ? 1 : -1)
+                localStorage.setItem('items', JSON.stringify(itemsArray.slice(0, 3)))
+
             }
 
             next = () => {
@@ -111,4 +155,19 @@ function start() {
             [array[i], array[j]] = [array[j], array[i]]; // zamena elemenata
         }
     }
+}
+
+topScores = () => {
+    document.querySelector('.screen-home').classList.add('none');
+    document.querySelector('.screen-leaderboard').classList.remove('none');
+    //const storageData = JSON.parse(localStorage.getItem('items'))
+    let ol = document.getElementById('topThree')
+    const liMaker = text => {
+        const li = document.createElement('li')
+        li.textContent = text
+        ol.appendChild(li)
+    }
+    itemsArray.forEach(item => {
+        liMaker(item.sum)
+    })
 }
