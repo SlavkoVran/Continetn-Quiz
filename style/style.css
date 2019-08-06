@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+
+nav{
+    background: #333;
+    width: 100%;
+    height: 10vh;;
+}
+
+.container{
+    width:100%;
+    height: 100vh;
+    /* background-color: red; */
+    margin:auto;
+}
+.screen{
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+   
+    background: violet;
+}
+
+.screen-home{
+    align-items: center;
+    justify-content: space-around;
+    background: yellow;
+}
+.screen-quiz{
+    background: green;
+}
+
+.q-content{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-around;
+height: 100%;
+}
+
+.q-content img{
+    height: 30%;
+    width: 100%;
+
+}
+
+#qImg{
+    width: 100%;
+    height: 50%;
+    background: orange;
+}
+
+
+.wrapper-answer{
+    height: 100%;
+    width: 100%;
+}
+
+#answer{
+    width: 60%;
+    height: 10%;
+    background: red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+#answer > div{
+    background: pink;
+    height: 100%;
+    /* padding:2px;  */
+    align-self: center;
+    justify-self: center;
+    display: flex;
+    align-items: center;
+}
+
+.screen-leaderboard{
+    background: blue;
+}
+.screen-result{
+    background: pink;
+}
+
+.bg-home{
+    position: relative;
+    width: 100%;
+    height: 30vh;
+}
+
+.bg-home img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; 
+}
