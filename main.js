@@ -58,22 +58,29 @@ function start() {
                         screenQuiz.innerHTML += `<label><input name="question" value="${offeredAnswer[e]}">${offeredAnswer[e]}<img src=""/></label>`
                     }
                 }
+                   
 
                 let chosenAnswer = document.getElementsByTagName('input')
                 let odgovor = questionArr[index].continent;
                 for (let el of chosenAnswer) {
-                    el.addEventListener('click', function (e) {
+                    
+                    el.addEventListener('click', function () {
+                        //disable click on another answer
+                        for (let elem of chosenAnswer) {
+                            elem.disabled = true
+                            }
                         el.parentElement.style.background = 'blue'
                         setTimeout(function () {
+                            
                             if (questionArr[index].continent === el.value) {
                                 el.parentElement.style.background = 'green'
                                 sum += point
                             }
                             else {
-                                $("#tacan").css("background-color", "orange");
+                               document.getElementById("tacan").style.background = 'orange';
                                 el.parentElement.style.background = 'red'
                             }
-                            
+
                             if (index < 4) {
                                 btnQuiz.innerHTML = `<button id='btn'>Next</button>`
                                 document.getElementById('btn').addEventListener('click', next)
@@ -82,16 +89,23 @@ function start() {
                                 btnQuiz.innerHTML = `<button id='btn2'>End</button>`
                                 document.getElementById('btn2').addEventListener('click', end)
                             }
+
                         }, 700)
+                       
                     })
+                  
                 }
+                btnQuiz.innerHTML = ''
                 console.log(odgovor)
             }
 
             end = () => {
-                document.getElementsByClassName('screen-result')[0].innerHTML = sum;
+                document.getElementsByClassName('result')[0].innerHTML = sum;
                 document.querySelector('.screen-quiz').classList.add('none');
                 document.querySelector('.screen-result').classList.remove('none');
+                document.querySelector('.screen-leaderboard').classList.add('none');
+                document.querySelector('.screen-home').classList.add('none');
+               
 
                 let datum = new Date();
                 console.log(datum)
@@ -129,13 +143,16 @@ function start() {
     }
 }
 
+
+
 topScores = () => {
+
     document.querySelector('.screen-home').classList.add('none');
     document.querySelector('.screen-leaderboard').classList.remove('none');
     //const storageData = JSON.parse(localStorage.getItem('items'))
     let ol = document.getElementById('topThree')
     const liMaker = text => {
-        const li = document.createElement('li')
+        let li = document.createElement('li')
         li.textContent = text
         ol.appendChild(li)
     }
@@ -143,3 +160,15 @@ topScores = () => {
         liMaker(item.sum)
     })
 }
+
+home = () => { 
+    document.querySelector('.screen-quiz').classList.add('none');
+    document.querySelector('.screen-result').classList.add('none');
+    document.querySelector('.screen-leaderboard').classList.add('none');
+    document.querySelector('.screen-home').classList.remove('none');
+    }
+
+document.getElementById("btnLeaderboard").addEventListener('click',topScores);
+document.getElementById("btnHome").addEventListener('click',home);
+document.getElementById("btnPlay").addEventListener('click',start);
+document.getElementById("btnFinish").addEventListener('click',home);

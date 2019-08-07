@@ -88,6 +88,9 @@ label>input {
 }
 .screen-result{
     background: pink;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
 }
 
 .bg-home{
