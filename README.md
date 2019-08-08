@@ -1,5 +1,6 @@
 # Project Title
 Continent Quiz
+![alt text](https://github.com/SlavkoVran/Continetn-Quiz/blob/master/assets/Continents.svg)
 
 ## Description
 
@@ -7,7 +8,7 @@ A simple quiz application that tests user's knowledge of the continent.
 
 ## Application consist
  - Home screen 
- ![alt text](https://github.com/SlavkoVran/Continetn-Quiz/blob/master/assets/Continents.svg)
+ 
  - Leaderboard screen
  - Main screen 
  - Results screen 
