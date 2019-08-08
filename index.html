@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./style/normalize.css">
     <link rel="stylesheet" href="./style/animation.css">
     <link rel="stylesheet" href="./style/style.css">
-  
+
     <title>Continent Quiz</title>
 </head>
 
@@ -18,30 +18,30 @@
         <nav></nav>
         <main>
             <!-- screen-home -->
-            <div class="screen screen-home">
+            <div class="screen screen-home flex">
                 <img class="bg-home" src="Continents.svg" alt="">
                 <button id="btnStart">start quiz</button>
                 <button id="btnLeaderboard">Leaderboard</button>
             </div>
 
             <!-- screen-quiz -->
-            <div class="screen screen-quiz">
-                <div id="screenQuiz" class="quiz-content"></div>
-                <div class="btn-quiz"></div>
+            <div class="screen screen-quiz flex">
+                <div id="screenQuiz" class="quiz-content flex"></div>
+                <div class="btn-quiz flex"></div>
             </div>
 
             <!-- screen-leaderboard -->
-            <div class="screen screen-leaderboard">
+            <div class="screen screen-leaderboard flex">
                 <h4>Your scores</h4>
                 <ul id="topThree"></ul>
-                <div class="wrapper-btn">
-                    <i id="btnHome" class="material-icons">home</i>
-                    <i id="btnPlay" class="material-icons">play_circle_filled</i>
+                <div class="wrapper-btn flex">
+                    <i id="btnHome" class="material-icons flex">home</i>
+                    <i id="btnPlay" class="material-icons flex">play_circle_filled</i>
                 </div>
             </div>
 
             <!-- screen-result -->
-            <div class="screen screen-result">
+            <div class="screen screen-result flex">
                 <img src="Continents.svg" alt="">
                 <div class="result">
                 </div>

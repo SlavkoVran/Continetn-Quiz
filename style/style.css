@@ -9,6 +9,13 @@ nav{
     height: 10vh;;
 }
 
+.flex{
+    display: flex;
+}
+.align-items-center{
+    align-items: center;
+}
+
 .container{
     max-width:600px;
     height: 100vh;
@@ -17,7 +24,7 @@ nav{
 }
 .screen{
     height: 90vh;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     /* background: violet; */
 }
@@ -37,23 +44,20 @@ nav{
 
 #screenQuiz > img{
     width: 80%;
-    height: 150px;
+    height: 200px;
 }
 
 #screenQuiz > h4{
     align-self: flex-start;
+    padding-left: 30px;
+    margin: 0;
 }
-/* ol{
-    background: yellow;
-}
-li{
-    background: red;
-} */
+
 .quiz-content{
     /* background: violet; */
     width: 100%;
     height: 100%;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
@@ -63,7 +67,7 @@ li{
     height: 20vh;
     width: 100%;
     /* background: yellowgreen; */
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
 }
@@ -72,6 +76,18 @@ li{
     width: 30%;
     height: 50%;
     border: none;
+    width: 30%;
+    height: 50%;
+    border: none;
+    font-weight: 900;
+    color: white;
+    font-size: 1.5rem;
+    /* outline-color: green; */
+    background: green;
+}
+
+#btnEnd{
+    background: red;
 }
 
 #wrong > i{
@@ -95,14 +111,8 @@ label>input {
     visibility: hidden;
     position: absolute;
   }
- .selected-answer{
-     border: 2px solid orange;
- }
 
- .wrong-answer{
-    display: inline; 
- }
- .correct-answer{
+ .mark-answer{
      background: orange !important;
      color: white;
  }
@@ -110,7 +120,7 @@ label>input {
 .screen-leaderboard{
     /* background: lightcoral; */
   
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
 }
@@ -141,7 +151,7 @@ p{
     width: 100%;
     height: 100%;
     /* background: green; */
-    display: flex;
+    /* display: flex; */
     justify-content: space-around;
     align-items: center;
 }
@@ -149,7 +159,7 @@ p{
 .wrapper-btn i{
     height: 10vh;
     background: lightseagreen;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
     width: 10vh;
@@ -158,7 +168,6 @@ p{
 .material-icons {
     font-size: 58px;
     color: wheat;
-
 }
 .none {
     display: none;
