@@ -73,7 +73,9 @@ nav{
     align-self: flex-start;
     padding-left: 30px;
     margin: 0;
+    color: #626673;
 }
+
 
 .quiz-content{
     /* background: violet; */
@@ -162,6 +164,9 @@ label>input {
     align-items: center;
     font-size: 3rem;
 }
+#topThree h5{
+    color: #626673;
+}
 
 .bg-home{
     position: relative;
@@ -175,6 +180,7 @@ label>input {
     position: absolute;
     top: 0; 
 }
+
 
 p{
     font-size: 2rem;
@@ -196,6 +202,10 @@ p{
     align-items: center;
     width: 10vh;
     border-radius: 50%;
+}
+
+#btnReset{
+    color: red;
 }
 .material-icons {
     font-size: 58px;
