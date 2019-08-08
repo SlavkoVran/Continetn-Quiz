@@ -9,7 +9,7 @@ A simple quiz application that tests user's knowledge of the continent.
 ## Application consist
  - Home screen 
  
- <img src="https://github.com/SlavkoVran/Continetn-Quiz/blob/master/assets/1homeScreen.jpg" alt="icons" width="50%">
+ <img src="https://github.com/SlavkoVran/Continetn-Quiz/blob/master/assets/1homeScreen.jpg" alt="icons" width="20%">
  
  - Leaderboard screen
  - Main screen 
