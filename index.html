@@ -14,41 +14,44 @@
 </head>
 
 <body>
-    <div class="container">
-        <nav class="flex">
-             <h4>Guess the continent?</h4>
+    <div class="container ">
+        <nav class="flex f-center ">
+             <h5>Guess the continent?</h5>
         </nav>
         <main>
             <!-- screen-home -->
             <div class="screen screen-home flex">
                 <img class="bg-home" src="./assets/Continents.svg" alt="">
-                <button id="btnStart">start quiz</button>
-                <button id="btnLeaderboard">Leaderboard</button>
+                <button id="btnStart" class="pointer">start quiz</button>
+                <button id="btnLeaderboard" class="pointer">Leaderboard</button>
             </div>
 
             <!-- screen-quiz -->
             <div class="screen screen-quiz flex">
                 <div id="screenQuiz" class="quiz-content flex"></div>
-                <div class="btn-quiz flex"></div>
+                <div class="btn-quiz flex f-center"></div>
             </div>
 
             <!-- screen-leaderboard -->
-            <div class="screen screen-leaderboard flex">
+            <div class="screen screen-leaderboard flex f-center">
                 <h4>Your scores</h4>
                 <ul id="topThree"></ul>
                 <div class="wrapper-btn flex">
-                    <i id="btnHome" class="material-icons flex">home</i>
-                    <i id="btnReset" class="material-icons flex">clear</i>
-                    <i id="btnPlay" class="material-icons flex">play_arrow</i>
+                    <i id="btnHome" class="material-icons flex pointer">home</i>
+                    <i id="btnReset" class="material-icons flex pointer">clear</i>
+                    <i id="btnPlay" class="material-icons flex pointer">play_arrow</i>
                 </div>
             </div>
 
             <!-- screen-result -->
             <div class="screen screen-result flex">
-                <img src="./assets/Continents.svg" alt="">
-                <div class="result">
+                <h4>Result</h4>
+                <img class='bg-home' src="./assets/Continents.svg" alt="">
+                <div class="wrapper-result flex f-center" >
+                    <span> Your result</span>
+                    <span class="result"></span>
                 </div>
-                <button id="btnFinish">Finish</button>
+                <button id="btnFinish" class="pointer">Finish</button>
             </div>
 
         </main>

@@ -5,19 +5,20 @@ const resultScreen = document.querySelector('.screen-result');
 const leaderboardScreen = document.querySelector('.screen-leaderboard');
 let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
 let screenQuiz = document.getElementById('screenQuiz');
-    let btnQuiz = document.querySelector('.btn-quiz');
+let btnQuiz = document.querySelector('.btn-quiz');
+let ul = document.getElementById('topThree');
+
 const addNone = e => {
     e.classList.add('none');
 }
-const removeNone = e =>{
+const removeNone = e => {
     e.classList.remove('none')
 }
-
 addNone(quizScreen);
 addNone(resultScreen);
 addNone(leaderboardScreen);
 
-function start () {
+function start() {
     removeNone(quizScreen);
     addNone(homeScreen);
     addNone(leaderboardScreen);
@@ -46,7 +47,8 @@ function start () {
             question();
             const point = 750;
             let sum = 0;
-            function question () {
+
+            function question() {
                 offeredAnswer.push(questionArr[index].continent);
                 while (offeredAnswer.length < 3) {
                     let some = Math.floor(Math.random() * continents.length);
@@ -54,9 +56,7 @@ function start () {
                         offeredAnswer.push(continents[some]);
                     }
                 }
-                
                 shuffle(offeredAnswer);
-            
                 screenQuiz.innerHTML = `<h4 class='fade-in'>Question
                 ${index + 1} of 5</h4>
                 <img  class='fade-in' src="${questionArr[index].image}" alt="Question image">`;
@@ -78,54 +78,48 @@ function start () {
                 let chosenAnswer = document.getElementsByTagName('input');
                 let done = document.createElement('i');
                 let clear = document.createElement('i');
-
                 done.classList.add('material-icons');
                 clear.classList.add('material-icons');
                 done.innerHTML = 'done';
                 clear.innerHTML = 'clear';
 
                 for (let el of chosenAnswer) {
-
                     el.addEventListener('click', function () {
                         //disable click on another answer
                         for (let elem of chosenAnswer) {
-                            elem.disabled = true
+                            elem.disabled = true;
                         }
-                        el.parentElement.style.background = '#d7d7d9'
-
+                        el.parentElement.style.background = '#d7d7d9';
                         setTimeout(function () {
                             if (questionArr[index].continent === el.value) {
-                                el.parentElement.appendChild(done)
+                                el.parentElement.appendChild(done);
                                 el.parentElement.classList.add('mark-answer');
-                                sum += point
+                                sum += point;
                             }
                             else {
                                 document.getElementById("correct").appendChild(done);
                                 el.parentElement.appendChild(clear);
                                 el.parentElement.classList.add('mark-answer');
                             }
-
                             if (index < 4) {
-                                btnQuiz.innerHTML = `<button id='btnNext'>Next</button>`;
+                                btnQuiz.innerHTML = `<button id='btnNext' class='pointer'>Next</button>`;
                                 document.getElementById('btnNext').addEventListener('click', next);
                             }
                             else {
-                                btnQuiz.innerHTML = `<button id='btnEnd'>End</button>`;
+                                btnQuiz.innerHTML = `<button id='btnEnd' class='pointer'>End</button>`;
                                 document.getElementById('btnEnd').addEventListener('click', end);
                             }
-                        }, 700)
-                    })
+                        }, 700);
+                    });
                 }
-                btnQuiz.innerHTML = ''
+                btnQuiz.innerHTML = '';
             }
-
             const end = () => {
                 document.getElementsByClassName('result')[0].innerHTML = sum;
                 removeNone(resultScreen);
                 addNone(quizScreen);
                 addNone(leaderboardScreen);
                 addNone(homeScreen);
-
                 let datum = new Date();
                 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
                 datum = `${datum.getDate()}/${months[datum.getMonth()]}/${datum.getFullYear()}`;
@@ -134,8 +128,8 @@ function start () {
                 itemsArray = itemsArray.slice(0, 3);
                 localStorage.setItem('items', JSON.stringify(itemsArray));
 
-                screenQuiz.innerHTML = ''
-                btnQuiz.innerHTML = ''
+                screenQuiz.innerHTML = '';
+                btnQuiz.innerHTML = '';
             }
             const next = () => {
                 offeredAnswer = [];
@@ -143,7 +137,6 @@ function start () {
                 btnQuiz.innerHTML = '';
                 question();
             }
-        
             // If the current random question already exists in the tracker, return true
             function existingQuestions() {
                 for (let i = 0; i < questionTracker.length; i++) {
@@ -165,25 +158,23 @@ function start () {
     }
 }
 
-let ul = document.getElementById('topThree')
 
 const topScores = () => {
     addNone(homeScreen);
     removeNone(leaderboardScreen);
-
     const liMaker = text => {
-        let li = document.createElement('li')
-        li.innerHTML = text
-        ul.appendChild(li)
+        let li = document.createElement('li');
+        li.innerHTML = text;
+        ul.appendChild(li);
     }
     itemsArray.forEach(item => {
         liMaker(`<h5>on ${item.datum}</h5>
-                 <p>${item.sum}</p>`)
+                 <p>${item.sum}</p>`);
     })
 }
 
 const home = () => {
-    ul.innerHTML = ''
+    ul.innerHTML = '';
     addNone(quizScreen);
     addNone(resultScreen);
     addNone(leaderboardScreen);
@@ -191,21 +182,16 @@ const home = () => {
 }
 
 const reset = () => {
-
     let message = confirm("Are you sure you want to delete all results so far?");
     if (message == true) {
         ul.innerHTML = '';
         localStorage.removeItem('items');
         itemsArray = [];
-        alert('You delete all results.')
+        alert('You delete all results.');
     } else {
-     alert('You did not delete the results.')
+        alert('You did not delete the results.');
     }
-
-  
-   
-    }
-
+}
 document.getElementById("btnLeaderboard").addEventListener('click', topScores);
 document.getElementById("btnHome").addEventListener('click', home);
 document.getElementById("btnPlay").addEventListener('click', start);
