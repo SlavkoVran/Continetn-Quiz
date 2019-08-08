@@ -7,6 +7,9 @@ let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem
 function start() {
     document.querySelector('.screen-quiz').classList.remove('none');
     document.querySelector('.screen-home').classList.add('none');
+    document.querySelector('.screen-leaderboard').classList.add('none');
+   
+    
     let screenQuiz = document.getElementById('screenQuiz');
     let btnQuiz = document.querySelector('.btn-quiz');
 
@@ -49,19 +52,39 @@ function start() {
                 console.log(offeredAnswer)
 
                 screenQuiz.innerHTML = `<h4>Question ${index + 1} of 5</h4>
-                <img src="${questionArr[index].image}" alt="Question image" width="200" height="150px">`
+                <img  class='slide-in-top' src="${questionArr[index].image}" alt="Question image">`
 
                 for (let e in offeredAnswer) {
                     if (offeredAnswer[e] == questionArr[index].continent) {
-                        screenQuiz.innerHTML += `<label id="tacan"><input name="question" value="${offeredAnswer[e]}">${offeredAnswer[e]}<img src=""/></label>`
+                        screenQuiz.innerHTML += `<label id="tacan" class='slide-in-left${e}'>
+                        <input  name="question" value="${offeredAnswer[e]}">
+                        ${offeredAnswer[e]}
+                        <img src=""/>
+                        </label>`
                     } else {
-                        screenQuiz.innerHTML += `<label><input name="question" value="${offeredAnswer[e]}">${offeredAnswer[e]}<img src=""/></label>`
+                        screenQuiz.innerHTML += `<label id="wrong" class='slide-in-left${e}'>
+                        <input name="question" value="${offeredAnswer[e]}">
+                        ${offeredAnswer[e]}
+                        <img src=""/>
+                        </label>`
                     }
                 }
                    
-
                 let chosenAnswer = document.getElementsByTagName('input')
                 let odgovor = questionArr[index].continent;
+                let done = document.createElement('i')//`<i class="material-icons"></i>`
+                let clear = document.createElement('i')//`<i class="material-icons"></i>`
+
+            
+                done.classList.add('material-icons');
+                clear.classList.add('material-icons');
+                // let text = document.createTextNode('Test');
+                // div.appendChild(text);
+                // document.body.appendChild(div)
+                done.innerHTML = 'done';
+clear.innerHTML = 'clear';
+
+                
                 for (let el of chosenAnswer) {
                     
                     el.addEventListener('click', function () {
@@ -69,16 +92,20 @@ function start() {
                         for (let elem of chosenAnswer) {
                             elem.disabled = true
                             }
-                        el.parentElement.style.background = 'blue'
+                        el.parentElement.style.background = '#d7d7d9'
                         setTimeout(function () {
                             
                             if (questionArr[index].continent === el.value) {
-                                el.parentElement.style.background = 'green'
+                                el.parentElement.appendChild(done)
+                                el.parentElement.classList.add('correct-answer');
+                                // document.querySelector('#tacan').appendChild(corect)
                                 sum += point
                             }
                             else {
-                               document.getElementById("tacan").style.background = 'orange';
-                                el.parentElement.style.background = 'red'
+                               document.getElementById("tacan").appendChild(done);
+                                // el.parentElement.style.background = 'red'
+                                el.parentElement.appendChild(clear)
+                                el.parentElement.classList.add('correct-answer');
                             }
 
                             if (index < 4) {
@@ -99,21 +126,23 @@ function start() {
                 console.log(odgovor)
             }
 
-            end = () => {
+            const end = () => {
                 document.getElementsByClassName('result')[0].innerHTML = sum;
                 document.querySelector('.screen-quiz').classList.add('none');
                 document.querySelector('.screen-result').classList.remove('none');
                 document.querySelector('.screen-leaderboard').classList.add('none');
                 document.querySelector('.screen-home').classList.add('none');
                
-
                 let datum = new Date();
+                const months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+                datum = `${datum.getDate()}/${months[datum.getMonth()]}/${datum.getFullYear()}`
                 console.log(datum)
                 itemsArray.push({ sum, datum })
                 itemsArray.sort((a, b) => (a.sum < b.sum) ? 1 : -1)
-                localStorage.setItem('items', JSON.stringify(itemsArray.slice(0, 3)))
+                itemsArray = itemsArray.slice(0,3)
+                localStorage.setItem('items', JSON.stringify(itemsArray))
             }
-            next = () => {
+            const next = () => {
                 offeredAnswer = []
                 index++
                 btnQuiz.innerHTML = ''
@@ -143,25 +172,27 @@ function start() {
     }
 }
 
-
+ let ul = document.getElementById('topThree')
 
 topScores = () => {
 
     document.querySelector('.screen-home').classList.add('none');
     document.querySelector('.screen-leaderboard').classList.remove('none');
     //const storageData = JSON.parse(localStorage.getItem('items'))
-    let ol = document.getElementById('topThree')
     const liMaker = text => {
         let li = document.createElement('li')
-        li.textContent = text
-        ol.appendChild(li)
+        li.innerHTML = text
+        ul.appendChild(li)
     }
+    
     itemsArray.forEach(item => {
-        liMaker(item.sum)
+        liMaker(`<h5>on ${item.datum}</h5>
+                 <p>${item.sum}</p>`)
     })
 }
 
 home = () => { 
+    ul.innerHTML=''
     document.querySelector('.screen-quiz').classList.add('none');
     document.querySelector('.screen-result').classList.add('none');
     document.querySelector('.screen-leaderboard').classList.add('none');
