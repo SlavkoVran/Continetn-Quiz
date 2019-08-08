@@ -7,26 +7,30 @@ let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem
 let screenQuiz = document.getElementById('screenQuiz');
 let btnQuiz = document.querySelector('.btn-quiz');
 let ul = document.getElementById('topThree');
+const spinner = document.getElementById('spinner');
 
 const addNone = e => {
     e.classList.add('none');
 }
 const removeNone = e => {
-    e.classList.remove('none')
+    e.classList.remove('none');
 }
 addNone(quizScreen);
 addNone(resultScreen);
 addNone(leaderboardScreen);
 
 function start() {
-    removeNone(quizScreen);
     addNone(homeScreen);
     addNone(leaderboardScreen);
-
+    spinner.removeAttribute('hidden');
     fetch(`https://api.myjson.com/bins/a6da9`)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+
+            setTimeout(() => {
+                spinner.setAttribute('hidden', '');
+                removeNone(quizScreen);
+            },1000);
             let questionTracker = [];
             let questionArr = [];
             let randomQuestion;
@@ -41,7 +45,6 @@ function start() {
                 questionArr.push(data[randomQuestion]);
                 // Add the question to the tracker
                 questionTracker.push(randomQuestion);
-                console.log(questionTracker)
                 offeredAnswer = [];
             }
             question();
@@ -127,7 +130,6 @@ function start() {
                 itemsArray.sort((a, b) => (a.sum < b.sum) ? 1 : -1);
                 itemsArray = itemsArray.slice(0, 3);
                 localStorage.setItem('items', JSON.stringify(itemsArray));
-
                 screenQuiz.innerHTML = '';
                 btnQuiz.innerHTML = '';
             }
@@ -157,7 +159,6 @@ function start() {
         }
     }
 }
-
 
 const topScores = () => {
     addNone(homeScreen);
