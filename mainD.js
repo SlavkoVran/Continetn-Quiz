@@ -1,26 +1,26 @@
 document.getElementById('btnStart').addEventListener('click', start);
 const homeScreen = document.querySelector('.screen-home');
-let quizScreen = document.querySelector('.screen-quiz');
-const resultScreen = document.querySelector('.screen-result');
-const leaderboardScreen = document.querySelector('.screen-leaderboard');
-let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
-let screenQuiz = document.getElementById('screenQuiz');
-    let btnQuiz = document.querySelector('.btn-quiz');
+const quiz = document.querySelector('.screen-quiz');
+const result = document.querySelector('.screen-result');
+const leaderboard = document.querySelector('.screen-leaderboard');
 const addNone = e => {
-    e.classList.add('none');
+    e.classList.add('none')
 }
-const removeNone = e =>{
+const removeNone = e => {
     e.classList.remove('none')
 }
+addNone(quiz);
+addNone(result);
+addNone(leaderboard);
 
-addNone(quizScreen);
-addNone(resultScreen);
-addNone(leaderboardScreen);
+let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
 
-function start () {
-    removeNone(quizScreen);
+function start() {
+    removeNone(quiz);
     addNone(homeScreen);
-    addNone(leaderboardScreen);
+    addNone(leaderboard);
+    let screenQuiz = document.querySelector('#screenQuiz');
+    let btnQuiz = document.querySelector('.btn-quiz');
 
     fetch(`https://api.myjson.com/bins/a6da9`)
         .then(res => res.json())
@@ -46,7 +46,7 @@ function start () {
             question();
             const point = 750;
             let sum = 0;
-            function question () {
+            function question() {
                 offeredAnswer.push(questionArr[index].continent);
                 while (offeredAnswer.length < 3) {
                     let some = Math.floor(Math.random() * continents.length);
@@ -54,17 +54,16 @@ function start () {
                         offeredAnswer.push(continents[some]);
                     }
                 }
-                
+
                 shuffle(offeredAnswer);
-            
-                screenQuiz.innerHTML = `<h4 class='fade-in'>
-                ${index + 1} of 5</h4>
-                <img  class='fade-in' src="${questionArr[index].image}" alt="Question image">`;
+
+                screenQuiz.innerHTML = `<h4>Question ${index + 1} of 5</h4>
+                <img  class='slide-in-top' src="${questionArr[index].image}" alt="Question image">`;
 
                 for (let e in offeredAnswer) {
                     if (offeredAnswer[e] == questionArr[index].continent) {
-                        screenQuiz.innerHTML += `<label id="correct" class='slide-in-left${e}'>
-                        <input  name="question" value="${offeredAnswer[e]}">
+                        screenQuiz.innerHTML += `<label id="tacan" class='slide-in-left${e}'>
+                       <input  name="question" value="${offeredAnswer[e]}">
                         ${offeredAnswer[e]}
                         </label>`;
                     } else {
@@ -76,6 +75,7 @@ function start () {
                 }
 
                 let chosenAnswer = document.getElementsByTagName('input');
+                //let odgovor = questionArr[index].continent;
                 let done = document.createElement('i');
                 let clear = document.createElement('i');
 
@@ -94,15 +94,16 @@ function start () {
                         el.parentElement.style.background = '#d7d7d9'
 
                         setTimeout(function () {
+                            el.parentElement.classList.add('mark-answer');
                             if (questionArr[index].continent === el.value) {
                                 el.parentElement.appendChild(done)
-                                el.parentElement.classList.add('mark-answer');
+                                //el.parentElement.classList.add('mark-answer');
                                 sum += point
                             }
                             else {
-                                document.getElementById("correct").appendChild(done);
+                                document.getElementById("tacan").appendChild(done);
                                 el.parentElement.appendChild(clear);
-                                el.parentElement.classList.add('mark-answer');
+                                //el.parentElement.classList.add('mark-answer');
                             }
 
                             if (index < 4) {
@@ -120,10 +121,12 @@ function start () {
             }
 
             const end = () => {
+
+
                 document.getElementsByClassName('result')[0].innerHTML = sum;
-                removeNone(resultScreen);
-                addNone(quizScreen);
-                addNone(leaderboardScreen);
+                addNone(quiz);
+                removeNone(result);
+                addNone(leaderboard);
                 addNone(homeScreen);
 
                 let datum = new Date();
@@ -140,7 +143,7 @@ function start () {
                 btnQuiz.innerHTML = '';
                 question();
             }
-        
+
             // If the current random question already exists in the tracker, return true
             function existingQuestions() {
                 for (let i = 0; i < questionTracker.length; i++) {
@@ -166,7 +169,7 @@ let ul = document.getElementById('topThree')
 
 const topScores = () => {
     addNone(homeScreen);
-    removeNone(leaderboardScreen);
+    removeNone(leaderboard);
 
     const liMaker = text => {
         let li = document.createElement('li')
@@ -181,9 +184,9 @@ const topScores = () => {
 
 const home = () => {
     ul.innerHTML = ''
-    addNone(quizScreen);
-    addNone(resultScreen);
-    addNone(leaderboardScreen);
+    addNone(quiz);
+    addNone(result);
+    addNone(leaderboard);
     removeNone(homeScreen);
 }
 

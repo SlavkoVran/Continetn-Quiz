@@ -7,6 +7,13 @@ nav{
     background: #333;
     width: 100%;
     height: 10vh;;
+    background: #333;
+    width: 100%;
+    color: #fff;
+    height: 10vh;
+    justify-content: center;
+    font-size: 1.5rem;
+    align-items: center;
 }
 
 .flex{
@@ -32,7 +39,21 @@ nav{
 .screen-home{
     align-items: center;
     justify-content: space-around;
-    background: yellow;
+    /* background: yellow; */
+}
+
+.screen-home button{
+    width: 40%;
+    height: 50%;
+    width: 60%;
+    height: 20%;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    font-weight: 900;
+    border: none;
+    background: #333;
+    color: #97ca3a;
+    box-shadow: 0px 3px 12px -1px rgb(165, 164, 164);
 }
 .screen-quiz{
     /* position: fixed; */
@@ -45,6 +66,7 @@ nav{
 #screenQuiz > img{
     width: 80%;
     height: 200px;
+    box-shadow: 0px 3px 12px -1px rgb(165, 164, 164);
 }
 
 #screenQuiz > h4{
@@ -82,30 +104,30 @@ nav{
     font-weight: 900;
     color: white;
     font-size: 1.5rem;
-    /* outline-color: green; */
-    background: green;
+    background: #008000;
+    box-shadow: 0px 3px 12px -1px rgb(165, 164, 164);
 }
 
 #btnEnd{
-    background: red;
+    background: #ff0000;
 }
 
 #wrong > i{
-    color: red;
+    color: #ff0000;
 }
 #tacan > i{
-    color: green;
+    color: #008000;
 }
 
 label{
-    /* background: pink; */
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 10vh;
     width: 60%;
-    border: 2px solid orange;
+    /* border: 2px solid orange; */
     padding-left: 20px;
+    box-shadow: 0px 3px 12px -1px rgb(165, 164, 164);
 }
 label>input {
     visibility: hidden;
@@ -113,9 +135,11 @@ label>input {
   }
 
  .mark-answer{
-     background: orange !important;
+     background: #ffa500 !important;
      color: white;
+    
  }
+
   
 .screen-leaderboard{
     /* background: lightcoral; */
@@ -123,6 +147,14 @@ label>input {
     /* display: flex; */
     justify-content: center;
     align-items: center;
+}
+
+#btnPlay{
+    color:#ffa500;
+}
+
+#btnHome{
+    color: #333;
 }
 .screen-result{
     background: pink;
@@ -158,7 +190,7 @@ p{
 
 .wrapper-btn i{
     height: 10vh;
-    background: lightseagreen;
+    box-shadow: 0px 3px 12px -1px rgb(165, 164, 164);
     /* display: flex; */
     justify-content: center;
     align-items: center;
@@ -167,7 +199,7 @@ p{
 }
 .material-icons {
     font-size: 58px;
-    color: wheat;
+    color: green;
 }
 .none {
     display: none;
